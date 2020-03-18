@@ -14,7 +14,6 @@ PSTACK InitStack(int stackSize) {
 
     pStack->top = -1;
     return pStack;
-    return NULL;
 }
 
 bool isStackFull(PSTACK pStack) {
