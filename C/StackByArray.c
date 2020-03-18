@@ -34,7 +34,7 @@ bool PushStack(PSTACK pStack, DATA_TYPE data) {
 }
 
 bool TopStack(PSTACK pStack, DATA_TYPE *data) {
-    if (isStackEmpty(pStack))
+    if (isStackEmpty(pStack) || data == NULL)
         return false;
 
     *data = pStack->data[pStack->top];
@@ -46,7 +46,10 @@ bool PopStack(PSTACK pStack, DATA_TYPE *data) {
     if (isStackEmpty(pStack))
         return false;
 
-    *data = pStack->data[(pStack->top)--];
+    if (data != NULL)
+        *data = pStack->data[pStack->top];
+
+    pStack->top--;
 
     return true;
 }
