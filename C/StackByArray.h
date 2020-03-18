@@ -12,10 +12,10 @@ typedef struct {
     int maxSize;
 } STACK, *PSTACK;
 
-PSTACK InitStack(int stackSize);
-void DeinitStack(PSTACK pStack);
-bool PushStack(PSTACK pStack, DATA_TYPE data);
-bool TopStack(PSTACK pStack, DATA_TYPE *data);
-bool PopStack(PSTACK pStack, DATA_TYPE *data);
+PSTACK InitStack(int);
+void DeinitStack(PSTACK);
+bool PushStack(PSTACK, DATA_TYPE);
+bool TopStack(PSTACK, DATA_TYPE *);
+bool PopStack(PSTACK, DATA_TYPE *);
 
 #endif
