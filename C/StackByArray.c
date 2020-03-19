@@ -17,7 +17,7 @@ PSTACK InitStack(int stackSize) {
 }
 
 bool isStackFull(PSTACK pStack) {
-    return pStack->top == pStack->maxSize;
+    return pStack->top == pStack->maxSize - 1;
 }
 
 bool isStackEmpty(PSTACK pStack) {
