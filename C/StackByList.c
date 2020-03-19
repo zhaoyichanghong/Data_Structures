@@ -1,6 +1,5 @@
 #include "StackByList.h"
 
-
 PSTACK InitStack() {
     PSTACK pStack = malloc(sizeof(STACK));
     if (pStack == NULL)

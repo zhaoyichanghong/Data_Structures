@@ -6,9 +6,9 @@
 
 typedef int DATA_TYPE;
 
-typedef struct {
-    DATA_TYPE *data;
-    struct Stack *next;
+typedef struct Node{
+    DATA_TYPE data;
+    struct Node *next;
 } NODE, *PNODE;
 
 typedef struct {
