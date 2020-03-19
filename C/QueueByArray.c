@@ -12,7 +12,7 @@ PQUEUE InitQueue(int queueSize) {
         return NULL;
     }
 
-    pQueue->front = pQueue->rear = 0;
+    pQueue->front = 0;
     pQueue->size = 0;
     return pQueue;
 }
@@ -29,8 +29,7 @@ bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
     if (isQueueFull(pQueue))
         return false;
 
-    pQueue->data[pQueue->rear] = data;
-    pQueue->rear = (pQueue->rear + 1) % pQueue->maxSize;
+    pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize] = data;
     pQueue->size++;
 
     return true;
@@ -47,6 +46,11 @@ bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
     pQueue->size--;
 
     return true;
+}
+
+void ClearQueue(PQUEUE pQueue) {
+    pQueue->front = 0;
+    pQueue->size = 0;
 }
 
 void DeinitQueue(PQUEUE pQueue) {
