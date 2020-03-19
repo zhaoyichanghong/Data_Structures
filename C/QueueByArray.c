@@ -53,6 +53,21 @@ void ClearQueue(PQUEUE pQueue) {
     pQueue->size = 0;
 }
 
+int GetMovingAverage(PQUEUE pQueue, unsigned short data) {
+    static unsigned int sum = 0;
+
+	if (isQueueFull(pQueue)) {
+        DATA_TYPE data = 0;
+		PopQueue(pQueue, &data);
+        sum -= data;
+    }
+
+	PushQueue(pQueue, data);
+    sum += data;
+    
+	return sum / pQueue->size;
+}
+
 void DeinitQueue(PQUEUE pQueue) {
     free(pQueue->data);
     free(pQueue);

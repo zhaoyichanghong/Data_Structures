@@ -1,23 +1,25 @@
-#ifndef QUEUE_BY_ARRAY_H
-#define QUEUE_BY_ARRAY_H
+#ifndef QUEUE_BY_LIST_H
+#define QUEUE_BY_LIST_H
 
 #include <stdlib.h>
 #include <stdbool.h>
 
 typedef int DATA_TYPE;
 
+typedef struct Node{
+    DATA_TYPE data;
+    struct Node *next;
+} NODE, *PNODE;
+
 typedef struct {
-    DATA_TYPE *data;
-    int front;
-    int maxSize;
-    int size;
+    PNODE front;
+    PNODE rear;
 } QUEUE, *PQUEUE;
 
-PQUEUE InitQueue(int);
+PQUEUE InitQueue();
 void DeinitQueue(PQUEUE);
 bool PushQueue(PQUEUE, DATA_TYPE);
 bool PopQueue(PQUEUE, DATA_TYPE *);
 void ClearQueue(PQUEUE pQueue);
-int GetMovingAverage(PQUEUE, unsigned short);
 
 #endif
