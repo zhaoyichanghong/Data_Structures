@@ -54,6 +54,10 @@ bool PopStack(PSTACK pStack, DATA_TYPE *data) {
     return true;
 }
 
+void ClearStack(PSTACK pStack) {
+    pStack->top = -1;
+}
+
 void DeinitStack(PSTACK pStack) {
     free(pStack->data);
     free(pStack);

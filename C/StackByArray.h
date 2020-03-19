@@ -17,5 +17,6 @@ void DeinitStack(PSTACK);
 bool PushStack(PSTACK, DATA_TYPE);
 bool TopStack(PSTACK, DATA_TYPE *);
 bool PopStack(PSTACK, DATA_TYPE *);
+void ClearStack(PSTACK pStack);
 
 #endif
