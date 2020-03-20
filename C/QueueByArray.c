@@ -57,9 +57,9 @@ int GetMovingAverage(PQUEUE pQueue, unsigned short data) {
     static unsigned int sum = 0;
 
 	if (isQueueFull(pQueue)) {
-        DATA_TYPE data = 0;
-		PopQueue(pQueue, &data);
-        sum -= data;
+        DATA_TYPE dataPop = 0;
+		PopQueue(pQueue, &dataPop);
+        sum -= dataPop;
     }
 
 	PushQueue(pQueue, data);
