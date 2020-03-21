@@ -11,10 +11,16 @@ PSTACK InitStack() {
 }
 
 bool isStackEmpty(PSTACK pStack) {
+    if (pStack == NULL)
+        return true;
+
     return pStack->top == NULL;
 }
 
 bool PushStack(PSTACK pStack, DATA_TYPE data) {
+    if (pStack == NULL)
+        return false;
+
     PNODE pNode = malloc(sizeof(NODE));
     if (pNode == NULL)
         return false;
@@ -27,6 +33,9 @@ bool PushStack(PSTACK pStack, DATA_TYPE data) {
 }
 
 bool TopStack(PSTACK pStack, DATA_TYPE *data) {
+    if (pStack == NULL)
+        return false;
+
     if (isStackEmpty(pStack) || data == NULL)
         return false;
 
@@ -36,6 +45,9 @@ bool TopStack(PSTACK pStack, DATA_TYPE *data) {
 }
 
 bool PopStack(PSTACK pStack, DATA_TYPE *data) {
+    if (pStack == NULL)
+        return false;
+
     if (isStackEmpty(pStack))
         return false;
 
@@ -50,11 +62,17 @@ bool PopStack(PSTACK pStack, DATA_TYPE *data) {
 }
 
 void ClearStack(PSTACK pStack) {
+    if (pStack == NULL)
+        return;
+
     while (!isStackEmpty(pStack))
         PopStack(pStack, NULL);
 }
 
 void DeinitStack(PSTACK pStack) {
+    if (pStack == NULL)
+        return;
+
     ClearStack(pStack);
     free(pStack);
 }

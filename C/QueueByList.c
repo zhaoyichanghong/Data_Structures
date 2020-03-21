@@ -16,10 +16,16 @@ PQUEUE InitQueue() {
 }
 
 bool isQueueEmpty(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return true;
+
     return pQueue->front == pQueue->rear;
 }
 
 bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
+    if (pQueue == NULL)
+        return false;
+
     pQueue->rear->next = malloc(sizeof(NODE));
     if (pQueue->rear->next == NULL)
         return false;
@@ -32,6 +38,9 @@ bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
 }
 
 bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
+    if (pQueue == NULL)
+        return false;
+
     if (isQueueEmpty(pQueue))
         return false;
 
@@ -48,11 +57,17 @@ bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
 }
 
 void ClearQueue(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return;
+
     while (!isQueueEmpty(pQueue))
         PopQueue(pQueue, NULL);
 }
 
 void DeinitQueue(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return;
+
     ClearQueue(pQueue);
     free(pQueue->front);
     free(pQueue);

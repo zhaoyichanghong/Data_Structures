@@ -1,6 +1,9 @@
 #include "StackByArray.h"
 
 PSTACK InitStack(int stackSize) {
+    if (stackSize == 0)
+        return NULL;
+
     PSTACK pStack = malloc(sizeof(STACK));
     if (pStack == NULL)
         return NULL;
@@ -17,14 +20,23 @@ PSTACK InitStack(int stackSize) {
 }
 
 bool isStackFull(PSTACK pStack) {
+    if (pStack == NULL)
+        return false;
+        
     return pStack->top == pStack->maxSize - 1;
 }
 
 bool isStackEmpty(PSTACK pStack) {
+    if (pStack == NULL)
+        return true;
+
     return pStack->top == -1;
 }
 
 bool PushStack(PSTACK pStack, DATA_TYPE data) {
+    if (pStack == NULL)
+        return false;
+
     if (isStackFull(pStack))
         return false;
 
@@ -34,6 +46,9 @@ bool PushStack(PSTACK pStack, DATA_TYPE data) {
 }
 
 bool TopStack(PSTACK pStack, DATA_TYPE *data) {
+    if (pStack == NULL)
+        return false;
+
     if (isStackEmpty(pStack) || data == NULL)
         return false;
 
@@ -43,6 +58,9 @@ bool TopStack(PSTACK pStack, DATA_TYPE *data) {
 }
 
 bool PopStack(PSTACK pStack, DATA_TYPE *data) {
+    if (pStack == NULL)
+        return false;
+
     if (isStackEmpty(pStack))
         return false;
 
@@ -55,10 +73,16 @@ bool PopStack(PSTACK pStack, DATA_TYPE *data) {
 }
 
 void ClearStack(PSTACK pStack) {
+    if (pStack == NULL)
+        return;
+
     pStack->top = -1;
 }
 
 void DeinitStack(PSTACK pStack) {
+    if (pStack == NULL)
+        return;
+
     free(pStack->data);
     free(pStack);
 }

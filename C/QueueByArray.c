@@ -1,6 +1,9 @@
 #include "QueueByArray.h"
 
 PQUEUE InitQueue(int queueSize) {
+    if (queueSize == 0)
+        return NULL;
+
     PQUEUE pQueue = malloc(sizeof(QUEUE));
     if (pQueue == NULL)
         return NULL;
@@ -14,31 +17,46 @@ PQUEUE InitQueue(int queueSize) {
 
     pQueue->front = 0;
     pQueue->size = 0;
+    pQueue->sum = 0;
     return pQueue;
 }
 
 bool isQueueFull(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return false;
+
     return pQueue->size == pQueue->maxSize;
 }
 
 bool isQueueEmpty(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return true;
+
     return pQueue->size == 0;
 }
 
 bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
+    if (pQueue == NULL)
+        return false;
+
     if (isQueueFull(pQueue))
         return false;
 
     pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize] = data;
     pQueue->size++;
+    pQueue->sum += data;
 
     return true;
 }
 
 bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
+    if (pQueue == NULL)
+        return false;
+
     if (isQueueEmpty(pQueue))
         return false;
 
+    pQueue->sum -= pQueue->data[pQueue->front];
     if (data != NULL)
         *data = pQueue->data[pQueue->front];
 
@@ -49,26 +67,30 @@ bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
 }
 
 void ClearQueue(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return;
+
     pQueue->front = 0;
     pQueue->size = 0;
+    pQueue->sum = 0;
 }
 
 int GetMovingAverage(PQUEUE pQueue, unsigned short data) {
-    static unsigned int sum = 0;
+    if (pQueue == NULL)
+        return 0;
 
-	if (isQueueFull(pQueue)) {
-        DATA_TYPE dataPop = 0;
-		PopQueue(pQueue, &dataPop);
-        sum -= dataPop;
-    }
+	if (isQueueFull(pQueue))
+		PopQueue(pQueue, NULL);
 
 	PushQueue(pQueue, data);
-    sum += data;
     
-	return sum / pQueue->size;
+	return pQueue->sum / pQueue->size;
 }
 
 void DeinitQueue(PQUEUE pQueue) {
+    if (pQueue == NULL)
+        return;
+
     free(pQueue->data);
     free(pQueue);
 }
