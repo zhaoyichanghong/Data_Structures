@@ -11,6 +11,7 @@ typedef struct {
     int front;
     int maxSize;
     int size;
+    int sum;
 } QUEUE, *PQUEUE;
 
 PQUEUE InitQueue(int);

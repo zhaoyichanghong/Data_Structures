@@ -14,6 +14,7 @@ PQUEUE InitQueue(int queueSize) {
 
     pQueue->front = 0;
     pQueue->size = 0;
+    pQueue->sum = 0;
     return pQueue;
 }
 
@@ -31,6 +32,7 @@ bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
 
     pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize] = data;
     pQueue->size++;
+    pQueue->sum += data;
 
     return true;
 }
@@ -39,6 +41,7 @@ bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
     if (isQueueEmpty(pQueue))
         return false;
 
+    pQueue->sum -= pQueue->data[pQueue->front];
     if (data != NULL)
         *data = pQueue->data[pQueue->front];
 
@@ -51,21 +54,16 @@ bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
 void ClearQueue(PQUEUE pQueue) {
     pQueue->front = 0;
     pQueue->size = 0;
+    pQueue->sum = 0;
 }
 
 int GetMovingAverage(PQUEUE pQueue, unsigned short data) {
-    static unsigned int sum = 0;
-
-	if (isQueueFull(pQueue)) {
-        DATA_TYPE dataPop = 0;
-		PopQueue(pQueue, &dataPop);
-        sum -= dataPop;
-    }
+	if (isQueueFull(pQueue))
+		PopQueue(pQueue, NULL);
 
 	PushQueue(pQueue, data);
-    sum += data;
     
-	return sum / pQueue->size;
+	return pQueue->sum / pQueue->size;
 }
 
 void DeinitQueue(PQUEUE pQueue) {
