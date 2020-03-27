@@ -1,22 +1,24 @@
 #ifndef STACK_BY_ARRAY_H
 #define STACK_BY_ARRAY_H
 
-#include <stdlib.h>
 #include <stdbool.h>
 
-typedef int DATA_TYPE;
+typedef struct Data {
+    void *array;
+    int len;
+} DATA, *PDATA;
 
 typedef struct {
-    DATA_TYPE *data;
+    PDATA data;
     int top;
     int maxSize;
 } STACK, *PSTACK;
 
 PSTACK InitStack(int);
 void DeinitStack(PSTACK);
-bool PushStack(PSTACK, DATA_TYPE);
-bool TopStack(PSTACK, DATA_TYPE *);
-bool PopStack(PSTACK, DATA_TYPE *);
+bool PushStack(PSTACK, void *, int);
+bool TopStack(PSTACK, void *, int *);
+bool PopStack(PSTACK, void *, int *);
 void ClearStack(PSTACK pStack);
 
 #endif
