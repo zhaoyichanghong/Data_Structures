@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-typedef struct Data {
+typedef struct {
     void *array;
     int len;
 } DATA, *PDATA;
