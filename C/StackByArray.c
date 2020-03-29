@@ -21,7 +21,7 @@ PSTACK InitStack(int stackSize) {
     return pStack;
 }
 
-static bool isStackFull(PSTACK pStack) {
+static bool IsStackFull(PSTACK pStack) {
     if (pStack == NULL)
         return false;
         
@@ -36,7 +36,7 @@ static bool IsStackEmpty(PSTACK pStack) {
 }
 
 bool PushStack(PSTACK pStack, void *data, int nBytes) {
-    if (pStack == NULL || isStackFull(pStack))
+    if (pStack == NULL || IsStackFull(pStack))
         return false;
 
     void *mem = malloc(nBytes);
@@ -52,7 +52,7 @@ bool PushStack(PSTACK pStack, void *data, int nBytes) {
 }
 
 bool TopStack(PSTACK pStack, void *data, int *nBytes) {
-    if (pStack == NULL || IsStackEmpty(pStack) || data == NULL)
+    if (pStack == NULL || IsStackEmpty(pStack) || data == NULL || nBytes == NULL)
         return false;
 
     if (*nBytes < pStack->data[pStack->top].len) {
@@ -69,7 +69,7 @@ bool PopStack(PSTACK pStack, void *data, int *nBytes) {
     if (pStack == NULL || IsStackEmpty(pStack))
         return false;
 
-    if (data != NULL) {
+    if (data != NULL && nBytes != NULL) {
         if (*nBytes < pStack->data[pStack->top].len) {
             *nBytes = pStack->data[pStack->top].len;
             return false;

@@ -22,14 +22,14 @@ PQUEUE InitQueue(int queueSize) {
     return pQueue;
 }
 
-bool isQueueFull(PQUEUE pQueue) {
+static bool IsQueueFull(PQUEUE pQueue) {
     if (pQueue == NULL)
         return false;
 
     return pQueue->size == pQueue->maxSize;
 }
 
-bool isQueueEmpty(PQUEUE pQueue) {
+static bool IsQueueEmpty(PQUEUE pQueue) {
     if (pQueue == NULL)
         return true;
 
@@ -37,7 +37,7 @@ bool isQueueEmpty(PQUEUE pQueue) {
 }
 
 bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
-    if (pQueue == NULL || isQueueFull(pQueue))
+    if (pQueue == NULL || IsQueueFull(pQueue))
         return false;
 
     void *mem = malloc(nBytes);
@@ -53,10 +53,10 @@ bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
 }
 
 bool PopQueue(PQUEUE pQueue, void *data, int *nBytes) {
-    if (pQueue == NULL || isQueueEmpty(pQueue))
+    if (pQueue == NULL || IsQueueEmpty(pQueue))
         return false;
 
-    if (data != NULL) {
+    if (data != NULL && nBytes != NULL) {
         if (*nBytes < pQueue->data[pQueue->front].len) {
             *nBytes = pQueue->data[pQueue->front].len;
             return false;
@@ -75,7 +75,7 @@ void ClearQueue(PQUEUE pQueue) {
     if (pQueue == NULL)
         return;
 
-    while (!isQueueEmpty(pQueue))
+    while (!IsQueueEmpty(pQueue))
         PopQueue(pQueue, NULL, NULL);
 }
 
