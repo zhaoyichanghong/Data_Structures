@@ -1,13 +1,15 @@
 #ifndef STACK_BY_LIST_H
 #define STACK_BY_LIST_H
 
-#include <stdlib.h>
 #include <stdbool.h>
 
-typedef int DATA_TYPE;
+typedef struct Data {
+    void *array;
+    int len;
+} DATA, *PDATA;
 
 typedef struct Node{
-    DATA_TYPE data;
+    DATA data;
     struct Node *next;
 } NODE, *PNODE;
 
@@ -17,9 +19,9 @@ typedef struct {
 
 PSTACK InitStack();
 void DeinitStack(PSTACK);
-bool PushStack(PSTACK, DATA_TYPE);
-bool TopStack(PSTACK, DATA_TYPE *);
-bool PopStack(PSTACK, DATA_TYPE *);
+bool PushStack(PSTACK, const void *, int);
+bool TopStack(PSTACK, void *, int *);
+bool PopStack(PSTACK, void *, int *);
 void ClearStack(PSTACK);
 
 #endif
