@@ -5,7 +5,7 @@
 
 typedef struct {
     void *array;
-    int len;
+    size_t len;
 } DATA, *PDATA;
 
 typedef struct Node{
@@ -19,9 +19,9 @@ typedef struct {
 
 PSTACK InitStack();
 void DeinitStack(PSTACK);
-bool PushStack(PSTACK, const void *, int);
-bool TopStack(PSTACK, void *, int *);
-bool PopStack(PSTACK, void *, int *);
+bool PushStack(PSTACK, const void *, size_t);
+bool TopStack(PSTACK, void *, size_t *);
+bool PopStack(PSTACK, void *, size_t *);
 void ClearStack(PSTACK);
 
 #endif

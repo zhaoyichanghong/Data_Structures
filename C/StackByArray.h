@@ -5,20 +5,20 @@
 
 typedef struct {
     void *array;
-    int len;
+    size_t len;
 } DATA, *PDATA;
 
 typedef struct {
     PDATA data;
-    int top;
-    int maxSize;
+    size_t top;
+    size_t maxSize;
 } STACK, *PSTACK;
 
-PSTACK InitStack(int);
+PSTACK InitStack(size_t);
 void DeinitStack(PSTACK);
-bool PushStack(PSTACK, void *, int);
-bool TopStack(PSTACK, void *, int *);
-bool PopStack(PSTACK, void *, int *);
+bool PushStack(PSTACK, void *, size_t);
+bool TopStack(PSTACK, void *, size_t *);
+bool PopStack(PSTACK, void *, size_t *);
 void ClearStack(PSTACK pStack);
 
 #endif

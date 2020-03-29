@@ -5,7 +5,7 @@
 
 typedef struct {
     void *array;
-    int len;
+    size_t len;
 } DATA, *PDATA;
 
 typedef struct Node{
@@ -20,8 +20,8 @@ typedef struct {
 
 PQUEUE InitQueue();
 void DeinitQueue(PQUEUE);
-bool PushQueue(PQUEUE, const void *, int);
-bool PopQueue(PQUEUE, void *, int *);
+bool PushQueue(PQUEUE, const void *, size_t);
+bool PopQueue(PQUEUE, void *, size_t *);
 void ClearQueue(PQUEUE pQueue);
 
 #endif

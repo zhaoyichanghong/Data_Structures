@@ -19,7 +19,7 @@ static bool IsStackEmpty(PSTACK pStack) {
     return pStack->top == NULL;
 }
 
-bool PushStack(PSTACK pStack, const void *data, int nBytes) {
+bool PushStack(PSTACK pStack, const void *data, size_t nBytes) {
     if (pStack == NULL || data == NULL)
         return false;
 
@@ -42,7 +42,7 @@ bool PushStack(PSTACK pStack, const void *data, int nBytes) {
     return true;
 }
 
-bool TopStack(PSTACK pStack, void *data, int *nBytes) {
+bool TopStack(PSTACK pStack, void *data, size_t *nBytes) {
     if (pStack == NULL || IsStackEmpty(pStack) || data == NULL || nBytes == NULL)
         return false;
 
@@ -56,7 +56,7 @@ bool TopStack(PSTACK pStack, void *data, int *nBytes) {
     return true;
 }
 
-bool PopStack(PSTACK pStack, void *data, int *nBytes) {
+bool PopStack(PSTACK pStack, void *data, size_t *nBytes) {
     if (pStack == NULL || IsStackEmpty(pStack))
         return false;
 

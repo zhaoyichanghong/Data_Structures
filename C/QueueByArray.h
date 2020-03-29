@@ -5,20 +5,20 @@
 
 typedef struct {
     void *array;
-    int len;
+    size_t len;
 } DATA, *PDATA;
 
 typedef struct {
     PDATA data;
-    int front;
-    int maxSize;
-    int size;
+    size_t front;
+    size_t maxSize;
+    size_t size;
 } QUEUE, *PQUEUE;
 
-PQUEUE InitQueue(int);
+PQUEUE InitQueue(size_t);
 void DeinitQueue(PQUEUE);
-bool PushQueue(PQUEUE, const void *, int);
-bool PopQueue(PQUEUE, void *, int *);
+bool PushQueue(PQUEUE, const void *, size_t);
+bool PopQueue(PQUEUE, void *, size_t *);
 void ClearQueue(PQUEUE pQueue);
 
 #endif

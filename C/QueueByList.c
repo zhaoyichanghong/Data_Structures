@@ -24,7 +24,7 @@ bool IsQueueEmpty(PQUEUE pQueue) {
     return pQueue->front == pQueue->rear;
 }
 
-bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
+bool PushQueue(PQUEUE pQueue, const void *data, size_t nBytes) {
     if (pQueue == NULL || data == NULL)
         return false;
 
@@ -47,7 +47,7 @@ bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
     return true;
 }
 
-bool PopQueue(PQUEUE pQueue, void *data, int *nBytes) {
+bool PopQueue(PQUEUE pQueue, void *data, size_t *nBytes) {
     if (pQueue == NULL || IsQueueEmpty(pQueue))
         return false;
 

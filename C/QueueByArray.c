@@ -2,7 +2,7 @@
 #include <string.h>
 #include "QueueByArray.h"
 
-PQUEUE InitQueue(int queueSize) {
+PQUEUE InitQueue(size_t queueSize) {
     if (queueSize == 0)
         return NULL;
 
@@ -36,7 +36,7 @@ static bool IsQueueEmpty(PQUEUE pQueue) {
     return pQueue->size == 0;
 }
 
-bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
+bool PushQueue(PQUEUE pQueue, const void *data, size_t nBytes) {
     if (pQueue == NULL || IsQueueFull(pQueue) || data == NULL)
         return false;
 
@@ -52,7 +52,7 @@ bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
     return true;
 }
 
-bool PopQueue(PQUEUE pQueue, void *data, int *nBytes) {
+bool PopQueue(PQUEUE pQueue, void *data, size_t *nBytes) {
     if (pQueue == NULL || IsQueueEmpty(pQueue))
         return false;
 

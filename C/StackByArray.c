@@ -2,7 +2,7 @@
 #include <string.h>
 #include "StackByArray.h"
 
-PSTACK InitStack(int stackSize) {
+PSTACK InitStack(size_t stackSize) {
     if (stackSize == 0)
         return NULL;
 
@@ -35,7 +35,7 @@ static bool IsStackEmpty(PSTACK pStack) {
     return pStack->top == -1;
 }
 
-bool PushStack(PSTACK pStack, void *data, int nBytes) {
+bool PushStack(PSTACK pStack, void *data, size_t nBytes) {
     if (pStack == NULL || IsStackFull(pStack) || data == NULL)
         return false;
 
@@ -51,7 +51,7 @@ bool PushStack(PSTACK pStack, void *data, int nBytes) {
     return true;
 }
 
-bool TopStack(PSTACK pStack, void *data, int *nBytes) {
+bool TopStack(PSTACK pStack, void *data, size_t *nBytes) {
     if (pStack == NULL || IsStackEmpty(pStack) || data == NULL || nBytes == NULL)
         return false;
 
@@ -65,7 +65,7 @@ bool TopStack(PSTACK pStack, void *data, int *nBytes) {
     return true;
 }
 
-bool PopStack(PSTACK pStack, void *data, int *nBytes) {
+bool PopStack(PSTACK pStack, void *data, size_t *nBytes) {
     if (pStack == NULL || IsStackEmpty(pStack))
         return false;
 
