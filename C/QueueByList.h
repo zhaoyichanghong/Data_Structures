@@ -1,13 +1,15 @@
 #ifndef QUEUE_BY_LIST_H
 #define QUEUE_BY_LIST_H
 
-#include <stdlib.h>
 #include <stdbool.h>
 
-typedef int DATA_TYPE;
+typedef struct {
+    void *array;
+    int len;
+} DATA, *PDATA;
 
 typedef struct Node{
-    DATA_TYPE data;
+    DATA data;
     struct Node *next;
 } NODE, *PNODE;
 
@@ -18,8 +20,8 @@ typedef struct {
 
 PQUEUE InitQueue();
 void DeinitQueue(PQUEUE);
-bool PushQueue(PQUEUE, DATA_TYPE);
-bool PopQueue(PQUEUE, DATA_TYPE *);
+bool PushQueue(PQUEUE, const void *, int);
+bool PopQueue(PQUEUE, void *, int *);
 void ClearQueue(PQUEUE pQueue);
 
 #endif

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "QueueByList.h"
 
 PQUEUE InitQueue() {
@@ -15,37 +17,48 @@ PQUEUE InitQueue() {
     return pQueue;
 }
 
-bool isQueueEmpty(PQUEUE pQueue) {
+bool IsQueueEmpty(PQUEUE pQueue) {
     if (pQueue == NULL)
         return true;
 
     return pQueue->front == pQueue->rear;
 }
 
-bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
-    if (pQueue == NULL)
+bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
+    if (pQueue == NULL || data == NULL)
         return false;
 
     pQueue->rear->next = malloc(sizeof(NODE));
     if (pQueue->rear->next == NULL)
         return false;
 
-    pQueue->rear->next->data = data;
+    void *mem = malloc(nBytes);
+    if (mem == NULL) {
+        free(pQueue->rear->next);
+        return false;
+    }
+
+    memcpy(mem, data, nBytes);
+    pQueue->rear->next->data.array = mem;
+    pQueue->rear->next->data.len = nBytes;
     pQueue->rear->next->next = NULL;
     pQueue->rear = pQueue->rear->next;
 
     return true;
 }
 
-bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
-    if (pQueue == NULL)
+bool PopQueue(PQUEUE pQueue, void *data, int *nBytes) {
+    if (pQueue == NULL || IsQueueEmpty(pQueue))
         return false;
 
-    if (isQueueEmpty(pQueue))
-        return false;
+    if (data != NULL && nBytes != NULL) {
+        if (*nBytes < pQueue->front->next->data.len) {
+            *nBytes = pQueue->front->next->data.len;
+            return false;
+        }
 
-    if (data != NULL)
-        *data = pQueue->front->next->data;
+        memcpy(data, pQueue->front->next->data.array, pQueue->front->next->data.len);
+    }
 
     PNODE pNode = pQueue->front->next;
     pQueue->front->next = pNode->next;
@@ -60,8 +73,8 @@ void ClearQueue(PQUEUE pQueue) {
     if (pQueue == NULL)
         return;
 
-    while (!isQueueEmpty(pQueue))
-        PopQueue(pQueue, NULL);
+    while (!IsQueueEmpty(pQueue))
+        PopQueue(pQueue, NULL, NULL);
 }
 
 void DeinitQueue(PQUEUE pQueue) {
