@@ -37,7 +37,7 @@ static bool IsQueueEmpty(PQUEUE pQueue) {
 }
 
 bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
-    if (pQueue == NULL || IsQueueFull(pQueue))
+    if (pQueue == NULL || IsQueueFull(pQueue) || data == NULL)
         return false;
 
     void *mem = malloc(nBytes);

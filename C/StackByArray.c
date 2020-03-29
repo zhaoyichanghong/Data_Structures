@@ -36,7 +36,7 @@ static bool IsStackEmpty(PSTACK pStack) {
 }
 
 bool PushStack(PSTACK pStack, void *data, int nBytes) {
-    if (pStack == NULL || IsStackFull(pStack))
+    if (pStack == NULL || IsStackFull(pStack) || data == NULL)
         return false;
 
     void *mem = malloc(nBytes);
