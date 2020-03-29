@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "QueueByArray.h"
 
 PQUEUE InitQueue(int queueSize) {
@@ -9,7 +11,7 @@ PQUEUE InitQueue(int queueSize) {
         return NULL;
 
     pQueue->maxSize = queueSize;
-    pQueue->data = calloc(pQueue->maxSize, sizeof(DATA_TYPE));
+    pQueue->data = calloc(pQueue->maxSize, sizeof(DATA));
     if (pQueue->data == NULL) {
         free(pQueue);
         return NULL;
@@ -17,7 +19,6 @@ PQUEUE InitQueue(int queueSize) {
 
     pQueue->front = 0;
     pQueue->size = 0;
-    pQueue->sum = 0;
     return pQueue;
 }
 
@@ -35,30 +36,34 @@ bool isQueueEmpty(PQUEUE pQueue) {
     return pQueue->size == 0;
 }
 
-bool PushQueue(PQUEUE pQueue, DATA_TYPE data) {
-    if (pQueue == NULL)
+bool PushQueue(PQUEUE pQueue, const void *data, int nBytes) {
+    if (pQueue == NULL || isQueueFull(pQueue))
         return false;
 
-    if (isQueueFull(pQueue))
+    void *mem = malloc(nBytes);
+    if (mem == NULL)
         return false;
 
-    pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize] = data;
+    memcpy(mem, data, nBytes);
+    pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize].array = mem;
+    pQueue->data[(pQueue->front + pQueue->size) % pQueue->maxSize].len = nBytes;
     pQueue->size++;
-    pQueue->sum += data;
 
     return true;
 }
 
-bool PopQueue(PQUEUE pQueue, DATA_TYPE *data) {
-    if (pQueue == NULL)
+bool PopQueue(PQUEUE pQueue, void *data, int *nBytes) {
+    if (pQueue == NULL || isQueueEmpty(pQueue))
         return false;
 
-    if (isQueueEmpty(pQueue))
-        return false;
+    if (data != NULL) {
+        if (*nBytes < pQueue->data[pQueue->front].len) {
+            *nBytes = pQueue->data[pQueue->front].len;
+            return false;
+        }
 
-    pQueue->sum -= pQueue->data[pQueue->front];
-    if (data != NULL)
-        *data = pQueue->data[pQueue->front];
+        memcpy(data, pQueue->data[pQueue->front].array, pQueue->data[pQueue->front].len);
+    }
 
     pQueue->front = (pQueue->front + 1) % pQueue->maxSize;
     pQueue->size--;
@@ -70,27 +75,15 @@ void ClearQueue(PQUEUE pQueue) {
     if (pQueue == NULL)
         return;
 
-    pQueue->front = 0;
-    pQueue->size = 0;
-    pQueue->sum = 0;
-}
-
-int GetMovingAverage(PQUEUE pQueue, unsigned short data) {
-    if (pQueue == NULL)
-        return 0;
-
-	if (isQueueFull(pQueue))
-		PopQueue(pQueue, NULL);
-
-	PushQueue(pQueue, data);
-    
-	return pQueue->sum / pQueue->size;
+    while (!isQueueEmpty(pQueue))
+        PopQueue(pQueue, NULL, NULL);
 }
 
 void DeinitQueue(PQUEUE pQueue) {
     if (pQueue == NULL)
         return;
 
+    ClearQueue(pQueue);
     free(pQueue->data);
     free(pQueue);
 }
