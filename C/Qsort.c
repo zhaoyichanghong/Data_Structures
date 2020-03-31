@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Qsort.h"
 
-static void sort(void *array, size_t size, size_t low, size_t high, COMPARE compare) {
+static void sort(void *array, size_t size, int low, int high, COMPARE compare) {
     if (array == NULL || size == 0 || compare == NULL || low >= high)
         return;
         
@@ -11,8 +11,8 @@ static void sort(void *array, size_t size, size_t low, size_t high, COMPARE comp
         return;
     memcpy(key, (char *)array + low * size, size);
 
-    size_t first = low;
-    size_t last = high;
+    int first = low;
+    int last = high;
     while (first < last) {
         while (first < last && compare(key, (char *)array + last * size) <= 0)
             last--;
