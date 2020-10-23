@@ -76,3 +76,21 @@ void DestoryList(PLIST pList) {
     free(pList->head);
     free(pList);
 }
+
+PLIST RevertList1(PLIST pList) {
+    if (pList == NULL)
+        return NULL;
+
+    PLIST result = CreateList();
+    if (result == NULL)
+        return NULL;
+
+    for (PNODE p = pList->head; p->next != NULL;) {
+        PNODE tmp = p->next->next;
+        p->next->next = result->head->next;
+        result->head->next = p->next;
+        p->next = tmp;
+    }
+
+    return result;
+}

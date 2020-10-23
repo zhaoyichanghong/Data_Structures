@@ -24,5 +24,7 @@ void DestoryList(PLIST);
 bool AddNode(PLIST, const void *, size_t);
 bool DelNode(PLIST, const void *, size_t);
 void TraverseList(PLIST, Handler);
+PLIST RevertList1(PLIST);
+void RevertList2(PLIST);
 
 #endif
