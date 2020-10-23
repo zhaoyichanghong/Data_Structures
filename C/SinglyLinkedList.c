@@ -94,3 +94,15 @@ PLIST RevertList1(PLIST pList) {
 
     return result;
 }
+
+void RevertList2(PLIST pList) {
+    if (pList == NULL)
+        return;
+
+    for (PNODE p = pList->head->next; p->next != NULL;) {
+        PNODE tmp = p->next->next;
+        p->next->next = pList->head->next;
+        pList->head->next = p->next;
+        p->next = tmp;
+    }
+}
