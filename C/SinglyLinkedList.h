@@ -15,13 +15,15 @@ typedef struct Node{
 
 typedef struct {
     PNODE head;
+    PNODE tail;
 } LIST, *PLIST;
 
 typedef void (*Handler)(void *, size_t);
 
 PLIST CreateList();
 void DestoryList(PLIST);
-bool AddNode(PLIST, const void *, size_t);
+bool AddNodeToHead(PLIST, const void *, size_t);
+bool AddNodeToTail(PLIST, const void *, size_t);
 bool DelNode(PLIST, const void *, size_t);
 void TraverseList(PLIST, Handler);
 PLIST RevertList1(PLIST);
